@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { isAuthenticated, logout } from '../services/auth';
-import { Cpu, LogOut, ArrowRight } from 'lucide-react';
+import { Cpu, LogOut, ArrowRight, Sun, Moon } from 'lucide-react';
 
 export default function Navbar() {
     const navigate = useNavigate();
     const location = useLocation();
     const auth = isAuthenticated();
+
+    const [isDarkMode, setIsDarkMode] = useState(() => {
+        return localStorage.getItem('theme') !== 'light';
+    });
+
+    const toggleTheme = () => {
+        const newTheme = !isDarkMode;
+        setIsDarkMode(newTheme);
+        if (newTheme) {
+            document.body.classList.remove('light-mode');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.body.classList.add('light-mode');
+            localStorage.setItem('theme', 'light');
+        }
+    };
 
     const handleLogout = () => {
         logout();
@@ -15,7 +31,8 @@ export default function Navbar() {
 
     // Do not show fixed navbar on dashboard pages which use a different layout, or handle it via a layout component.
     // We'll show this on public pages.
-    if (['/dashboard', '/config', '/analysis', '/users'].includes(location.pathname)) {
+    const hiddenPaths = ['/dashboard', '/config', '/analysis', '/users', '/projects'];
+    if (hiddenPaths.some(path => location.pathname.startsWith(path))) {
         return null; // hide Navbar in app dashboard (dashboard has its own Header)
     }
 
@@ -31,6 +48,10 @@ export default function Navbar() {
             </Link>
 
             <div className="flex items-center gap-6">
+                <button onClick={toggleTheme} className="relative p-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors hidden sm:flex">
+                    {isDarkMode ? <Sun className="w-5 h-5 text-gray-300" /> : <Moon className="w-5 h-5 text-gray-300" />}
+                </button>
+
                 {auth ? (
                     <>
                         <Link to="/dashboard" className="text-gray-300 hover:text-white font-medium text-sm tracking-widest uppercase flex items-center gap-2">

@@ -7,6 +7,9 @@ import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import protectedRoutes from './routes/protectedRoutes.js';
+import projectRoutes from './routes/projectRoutes.js';
+import notificationRoutes from './routes/notificationRoutes.js';
+import mlRoutes from './routes/mlRoutes.js';
 
 // Load env vars
 dotenv.config();
@@ -23,6 +26,9 @@ app.use(express.json()); // Body parser
 // Mount routers
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/projects', projectRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/ml', mlRoutes);
 app.use('/api', protectedRoutes);
 
 // Root route

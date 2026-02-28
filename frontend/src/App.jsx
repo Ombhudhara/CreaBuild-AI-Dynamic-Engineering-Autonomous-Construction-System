@@ -15,6 +15,9 @@ import DashboardPage from './pages/DashboardPage';
 import ConfigPage from './pages/ConfigPage';
 import AnalysisPage from './pages/AnalysisPage';
 import UserManagementPage from './pages/UserManagementPage';
+import ProjectsPage from './pages/ProjectsPage';
+import CreateProjectPage from './pages/CreateProjectPage';
+import ProjectDetailsPage from './pages/ProjectDetailsPage';
 
 export default function App() {
   return (
@@ -46,6 +49,24 @@ export default function App() {
           <ProtectedRoute>
             <DashboardPage />
           </ProtectedRoute>
+        } />
+
+        <Route path="/projects" element={
+          <ProtectedRoute>
+            <ProjectsPage />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/projects/create" element={
+          <RoleProtectedRoute allowedRoles={['admin', 'engineer']}>
+            <CreateProjectPage />
+          </RoleProtectedRoute>
+        } />
+
+        <Route path="/projects/edit/:id" element={
+          <RoleProtectedRoute allowedRoles={['admin', 'engineer']}>
+            <ProjectDetailsPage />
+          </RoleProtectedRoute>
         } />
 
         <Route path="/config" element={

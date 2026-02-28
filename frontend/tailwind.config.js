@@ -1,3 +1,5 @@
+import colors from 'tailwindcss/colors';
+
 /** @type {import('tailwindcss').Config} */
 export default {
     content: [
@@ -7,7 +9,36 @@ export default {
     theme: {
         extend: {
             colors: {
-                background: '#030712', /* gray-950 */
+                background: '#0F172A',
+                gray: {
+                    ...colors.slate,
+                    900: '#1E293B',
+                    950: '#0F172A',
+                },
+                cyan: {
+                    ...colors.orange,
+                    300: '#FDBA74',
+                    400: '#F97316',
+                    500: '#EA580C',
+                    600: '#C2410C',
+                    900: '#431407',
+                    950: '#2A0B05'
+                },
+                blue: {
+                    ...colors.sky,
+                    400: '#38BDF8',
+                    500: '#0EA5E9',
+                    600: '#0284C7',
+                    900: '#0C4A6E',
+                },
+                purple: {
+                    ...colors.sky,
+                    400: '#38BDF8',
+                    500: '#0EA5E9',
+                    900: '#0C4A6E',
+                    950: '#072F4A',
+                },
+                white: '#E2E8F0',
             },
             fontFamily: {
                 sans: ['Inter', 'system-ui', 'sans-serif'],

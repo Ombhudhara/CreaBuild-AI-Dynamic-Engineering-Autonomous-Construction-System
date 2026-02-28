@@ -4,19 +4,20 @@ import { useNavigate } from 'react-router-dom';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Legend } from 'recharts';
 import { CheckCircle2, MoveRight, Medal, ShieldAlert, Cpu } from 'lucide-react';
 import { toast } from 'react-hot-toast';
+import Header from '../components/Header';
 
 const data = [
-    { subject: 'Structural Strength', A: 75, B: 85, AI: 98, fullMark: 100 },
-    { subject: 'Cost Efficiency', A: 90, B: 65, AI: 95, fullMark: 100 },
-    { subject: 'Build Speed', A: 85, B: 70, AI: 90, fullMark: 100 },
-    { subject: 'Sustainability', A: 60, B: 90, AI: 85, fullMark: 100 },
-    { subject: 'Safety Factor', A: 70, B: 80, AI: 99, fullMark: 100 },
+    { subject: 'Building Strength', A: 75, B: 85, AI: 98, fullMark: 100 },
+    { subject: 'Money Saved', A: 90, B: 65, AI: 95, fullMark: 100 },
+    { subject: 'Speed of Building', A: 85, B: 70, AI: 90, fullMark: 100 },
+    { subject: 'Eco-Friendly', A: 60, B: 90, AI: 85, fullMark: 100 },
+    { subject: 'Safety Rating', A: 70, B: 80, AI: 99, fullMark: 100 },
 ];
 
 const designs = [
-    { id: 'A', name: 'Standard Layout A', color: '#6b7280', ai: false, metric: 'Balanced approach.' },
-    { id: 'B', name: 'Reinforced Structure B', color: '#8b5cf6', ai: false, metric: 'High strength, high cost.' },
-    { id: 'AI', name: 'CreaBuild AI Apex', color: '#06b6d4', ai: true, metric: 'Optimal performance matrix.' },
+    { id: 'A', name: 'Standard Layout A', color: '#6b7280', ai: false, metric: 'Good mix of strength and cost.' },
+    { id: 'B', name: 'Reinforced Structure B', color: '#8b5cf6', ai: false, metric: 'Very strong, but expensive.' },
+    { id: 'AI', name: 'CreaBuild AI Apex', color: '#06b6d4', ai: true, metric: 'Best overall choice.' },
 ];
 
 export default function AnalysisPage() {
@@ -24,7 +25,7 @@ export default function AnalysisPage() {
     const [activeDesign, setActiveDesign] = useState('AI');
 
     const handleDeploy = () => {
-        toast.success('AI Optimized Design Selected. Deploying to Digital Twin...', { duration: 3000 });
+        toast.success('AI Design Selected. Sending to Live 3D View...', { duration: 3000 });
         setTimeout(() => navigate('/dashboard'), 1500);
     };
 
@@ -42,7 +43,10 @@ export default function AnalysisPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-950 p-6 flex flex-col items-center">
+        <div className="min-h-screen bg-gray-950 flex flex-col items-center">
+            <div className="w-full relative z-50">
+                <Header status="active" />
+            </div>
             {/* Background styling */}
             <div className="fixed inset-0 pointer-events-none bg-grid-pattern opacity-50"></div>
             <div className="fixed inset-0 pointer-events-none">
@@ -59,9 +63,9 @@ export default function AnalysisPage() {
                     <Cpu className="w-4 h-4" /> ANALYSIS COMPLETE
                 </div>
                 <h1 className="text-4xl md:text-5xl font-black text-white mb-4 drop-shadow-lg tracking-tight">
-                    AI Design Matrix Ranking
+                    AI Design Comparison
                 </h1>
-                <p className="text-gray-400 text-lg max-w-2xl mx-auto font-medium">3 permutations generated based on input constraints. CreaBuild AI recommends the optimal convergence of structural integrity and cost.</p>
+                <p className="text-gray-400 text-lg max-w-2xl mx-auto font-medium">3 options created based on your rules. AI picked the best mix of strength and saving money.</p>
             </motion.div>
 
             <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10">
@@ -73,7 +77,7 @@ export default function AnalysisPage() {
                     transition={{ duration: 0.6, delay: 0.5, type: 'spring' }}
                 >
                     <div className="absolute top-4 left-4 text-xs font-bold text-gray-500 tracking-widest uppercase flex items-center gap-2">
-                        <ShieldAlert className="w-4 h-4 text-cyan-500/50" /> Performance Web
+                        <ShieldAlert className="w-4 h-4 text-cyan-500/50" /> Performance Graph
                     </div>
 
                     <ResponsiveContainer width="100%" height="100%">
@@ -176,8 +180,8 @@ export default function AnalysisPage() {
                         <Cpu className="w-6 h-6 text-cyan-400" />
                     </div>
                     <div>
-                        <h4 className="text-white font-bold tracking-widest uppercase">Select Design to Execute</h4>
-                        <p className="text-cyan-400/80 text-sm font-medium">Digital Twin environment ready.</p>
+                        <h4 className="text-white font-bold tracking-widest uppercase">Choose Design to Build</h4>
+                        <p className="text-cyan-400/80 text-sm font-medium">Live 3D View is ready.</p>
                     </div>
                 </div>
 
@@ -186,7 +190,7 @@ export default function AnalysisPage() {
                     className="group relative inline-flex items-center justify-center px-8 py-4 font-black text-gray-950 bg-cyan-400 rounded-xl overflow-hidden transition-all hover:scale-[1.02] active:scale-95 shadow-[0_0_20px_rgba(6,182,212,0.6)] w-full md:w-auto hover:bg-cyan-300"
                 >
                     <span className="relative z-10 text-lg uppercase tracking-widest flex items-center gap-2">
-                        DEPLOY DIGITAL TWIN <MoveRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+                        OPEN LIVE 3D VIEW <MoveRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
                     </span>
                 </button>
             </motion.div>

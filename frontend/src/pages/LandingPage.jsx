@@ -5,23 +5,23 @@ import { Cpu, Box, Activity, Layers, ArrowRight } from 'lucide-react';
 
 const features = [
     {
-        title: "Generative Design",
-        description: "AI-driven structural layout generation optimized for cost and efficiency.",
+        title: "Auto-Design",
+        description: "AI creates the best building layout to save time and money.",
         icon: <Box className="w-8 h-8 text-cyan-400" />
     },
     {
-        title: "Predictive Simulation",
-        description: "Advanced environmental & load stress simulations to ensure structural integrity.",
+        title: "Safety Testing",
+        description: "Tests how much weight and weather your building can handle to keep it safe.",
         icon: <Activity className="w-8 h-8 text-blue-400" />
     },
     {
-        title: "Digital Twin",
-        description: "Real-time 3D monitoring of live sensor data mapped directly to your model.",
+        title: "Live 3D View",
+        description: "Watch your building in 3D using live data from the real site.",
         icon: <Layers className="w-8 h-8 text-cyan-300" />
     },
     {
-        title: "Adaptive AI",
-        description: "Autonomous mitigation strategies that adapt to anomalies instantaneously.",
+        title: "Smart Fixes",
+        description: "System automatically finds and fixes problems as soon as they happen.",
         icon: <Cpu className="w-8 h-8 text-blue-300" />
     }
 ];
@@ -57,14 +57,14 @@ export default function LandingPage() {
                     </div>
 
                     <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mb-6 text-white drop-shadow-2xl">
-                        DYNAMIC <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">ENGINEERING</span>
+                        SMART <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">BUILDING</span>
                     </h1>
                     <h2 className="text-3xl md:text-5xl font-bold mb-8 text-gray-300">
-                        & AUTONOMOUS CONSTRUCTION
+                        & AUTOMATED CONSTRUCTION
                     </h2>
 
                     <p className="text-xl md:text-2xl text-gray-400 mb-12 font-medium max-w-3xl mx-auto tracking-wide">
-                        <span className="text-white">Design.</span> Predict. Adapt. <span className="text-cyan-400 neon-cyan">Build Smarter.</span>
+                        <span className="text-white">Plan.</span> Test. Fix. <span className="text-cyan-400 neon-cyan">Build Smarter.</span>
                     </p>
 
                     <button
@@ -73,7 +73,7 @@ export default function LandingPage() {
                     >
                         <span className="absolute inset-0 w-full h-full transition-all duration-500 ease-out bg-cyan-500 group-hover:scale-x-150 group-hover:bg-cyan-400 origin-left"></span>
                         <span className="relative z-10 text-xl tracking-wider flex items-center gap-3">
-                            INITIALIZE PROJECT <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                            START NEW PROJECT <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
                         </span>
                     </button>
                 </motion.div>

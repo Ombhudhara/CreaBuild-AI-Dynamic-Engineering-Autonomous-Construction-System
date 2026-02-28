@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
-import { isAuthenticated, getUserRole } from '../services/auth';
+import { AuthContext } from '../context/AuthContext';
 import { toast } from 'react-hot-toast';
 
 export default function RoleProtectedRoute({ children, allowedRoles }) {
-    if (!isAuthenticated()) {
+    const { token, role } = useContext(AuthContext);
+
+    if (!token) {
         return <Navigate to="/login" replace />;
     }
 
-    const userRole = getUserRole();
-    if (!allowedRoles.includes(userRole)) {
+    const currentRole = role ? role.toLowerCase() : 'viewer';
+
+    if (!allowedRoles.includes(currentRole)) {
         toast.error('Unauthorized access. Elevated privileges required.');
         return <Navigate to="/dashboard" replace />;
     }

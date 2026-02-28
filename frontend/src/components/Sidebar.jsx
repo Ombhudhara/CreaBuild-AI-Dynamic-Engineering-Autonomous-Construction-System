@@ -1,18 +1,19 @@
-import React from 'react';
-import { LayoutDashboard, Layers, Activity, Settings, Database, Server, Users } from 'lucide-react';
+import React, { useContext } from 'react';
+import { LayoutDashboard, Layers, Activity, Settings, Users, FolderOpen, PlusSquare } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
-import { getUserRole } from '../services/auth';
+import { AuthContext } from '../context/AuthContext';
 
 export default function Sidebar() {
     const location = useLocation();
-    const role = getUserRole();
+    const { role } = useContext(AuthContext);
+    const currentRole = role ? role.toLowerCase() : 'viewer';
 
     const navItems = [
-        { icon: LayoutDashboard, label: 'Overview', path: '/dashboard', roles: ['admin', 'engineer', 'viewer'] },
-        { icon: Settings, label: 'Config', path: '/config', roles: ['admin', 'engineer'] },
-        { icon: Activity, label: 'Analysis', path: '/analysis', roles: ['admin', 'engineer'] },
-        { icon: Users, label: 'User Registry', path: '/users', roles: ['admin'] },
+        { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard', roles: ['admin', 'engineer', 'viewer'] },
+        { icon: FolderOpen, label: 'Projects', path: '/projects', roles: ['admin', 'engineer', 'viewer'] },
+        { icon: PlusSquare, label: 'Create Project', path: '/projects/create', roles: ['admin', 'engineer'] },
+        { icon: Users, label: 'Users', path: '/users', roles: ['admin'] },
     ];
 
     return (
@@ -26,7 +27,7 @@ export default function Sidebar() {
                 </Link>
 
                 <nav className="space-y-2">
-                    {navItems.filter(item => item.roles.includes(role)).map((item, index) => {
+                    {navItems.filter(item => item.roles.includes(currentRole)).map((item, index) => {
                         const isActive = location.pathname === item.path;
                         return (
                             <Link key={index} to={item.path} className="block">

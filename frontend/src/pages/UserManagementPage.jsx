@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
-import { Edit2, Trash2, Users } from 'lucide-react';
+import { Edit2, Trash2, Users, Check, X, FileText } from 'lucide-react';
 import api from '../services/api';
 import { toast } from 'react-hot-toast';
 
@@ -55,6 +55,52 @@ export default function UserManagementPage() {
                                 <Users className="w-8 h-8 text-cyan-400" /> User <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Registry</span>
                             </h2>
                             <p className="text-gray-400 text-sm font-medium mt-1">Admin access matrix. Manage organizational roles.</p>
+                        </div>
+                    </div>
+
+                    {/* Example Access Control Matrix */}
+                    <div className="glassmorphism rounded-3xl border border-white/10 overflow-hidden bg-gray-900/40 p-6 mb-8">
+                        <div className="flex items-center gap-2 mb-6">
+                            <FileText className="w-5 h-5 text-gray-300" />
+                            <h3 className="text-xl font-bold text-white tracking-wide">Example Access Control</h3>
+                        </div>
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left border-collapse min-w-[600px]">
+                                <thead>
+                                    <tr className="border-b border-white/10 text-sm font-bold text-gray-200">
+                                        <th className="p-3 py-4 text-gray-300">Page</th>
+                                        <th className="p-3 py-4 text-center">Admin</th>
+                                        <th className="p-3 py-4 text-center">Engineer</th>
+                                        <th className="p-3 py-4 text-center">Viewer</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-white/5">
+                                    <tr className="hover:bg-white/5 transition-colors">
+                                        <td className="p-3 py-4 text-gray-300 font-medium">Dashboard</td>
+                                        <td className="p-3 py-4"><div className="flex justify-center"><Check className="w-5 h-5 text-green-400 bg-green-500/20 rounded p-0.5" /></div></td>
+                                        <td className="p-3 py-4"><div className="flex justify-center"><Check className="w-5 h-5 text-green-400 bg-green-500/20 rounded p-0.5" /></div></td>
+                                        <td className="p-3 py-4"><div className="flex justify-center"><Check className="w-5 h-5 text-green-400 bg-green-500/20 rounded p-0.5" /></div></td>
+                                    </tr>
+                                    <tr className="hover:bg-white/5 transition-colors">
+                                        <td className="p-3 py-4 text-gray-300 font-medium">Config Page</td>
+                                        <td className="p-3 py-4"><div className="flex justify-center"><Check className="w-5 h-5 text-green-400 bg-green-500/20 rounded p-0.5" /></div></td>
+                                        <td className="p-3 py-4"><div className="flex justify-center"><Check className="w-5 h-5 text-green-400 bg-green-500/20 rounded p-0.5" /></div></td>
+                                        <td className="p-3 py-4"><div className="flex justify-center"><X className="w-5 h-5 text-red-500" /></div></td>
+                                    </tr>
+                                    <tr className="hover:bg-white/5 transition-colors">
+                                        <td className="p-3 py-4 text-gray-300 font-medium">Analysis Page</td>
+                                        <td className="p-3 py-4"><div className="flex justify-center"><Check className="w-5 h-5 text-green-400 bg-green-500/20 rounded p-0.5" /></div></td>
+                                        <td className="p-3 py-4"><div className="flex justify-center"><Check className="w-5 h-5 text-green-400 bg-green-500/20 rounded p-0.5" /></div></td>
+                                        <td className="p-3 py-4"><div className="flex justify-center"><X className="w-5 h-5 text-red-500" /></div></td>
+                                    </tr>
+                                    <tr className="hover:bg-white/5 transition-colors">
+                                        <td className="p-3 py-4 text-gray-300 font-medium">User Management</td>
+                                        <td className="p-3 py-4"><div className="flex justify-center"><Check className="w-5 h-5 text-green-400 bg-green-500/20 rounded p-0.5" /></div></td>
+                                        <td className="p-3 py-4"><div className="flex justify-center"><X className="w-5 h-5 text-red-500" /></div></td>
+                                        <td className="p-3 py-4"><div className="flex justify-center"><X className="w-5 h-5 text-red-500" /></div></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
 
