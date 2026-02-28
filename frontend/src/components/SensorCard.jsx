@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-export default function DataCard({ title, value, unit, icon: Icon, colorClass, trend, status }) {
+export default function SensorCard({ title, value, unit, icon: Icon, colorClass, trend, status }) {
     // status: 'normal', 'warning', 'critical'
 
     const statusColors = {
@@ -14,9 +14,8 @@ export default function DataCard({ title, value, unit, icon: Icon, colorClass, t
 
     return (
         <motion.div
-            className={`glassmorphism rounded-2xl p-4 flex flex-col justify-between border ${currentStatusColor} transition-all duration-300 relative overflow-hidden`}
+            className={`glassmorphism rounded-2xl p-4 flex flex-col justify-between border ${currentStatusColor} transition-all duration-300 relative overflow-hidden bg-gray-950/80`}
         >
-            {/* Background Glow */}
             <div className={`absolute top-0 right-0 w-20 h-20 rounded-full blur-2xl opacity-20 pointer-events-none ${status === 'critical' ? 'bg-red-500' : 'bg-cyan-500'}`}></div>
 
             <div className="flex justify-between items-start mb-2 relative z-10">

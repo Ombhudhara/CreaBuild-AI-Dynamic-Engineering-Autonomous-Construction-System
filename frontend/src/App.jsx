@@ -1,21 +1,74 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LandingPage from './pages/LandingPage';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+
+// Layout & Protection
+import Navbar from './components/Navbar';
+import ProtectedRoute from './components/ProtectedRoute';
+import RoleProtectedRoute from './components/RoleProtectedRoute';
+
+// Pages
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import DashboardPage from './pages/DashboardPage';
 import ConfigPage from './pages/ConfigPage';
 import AnalysisPage from './pages/AnalysisPage';
-import DashboardPage from './pages/DashboardPage';
+import UserManagementPage from './pages/UserManagementPage';
 
-function App() {
+export default function App() {
   return (
     <Router>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          className: 'glassmorphism border-white/10 text-white',
+          style: {
+            background: 'rgba(255, 255, 255, 0.05)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            color: '#fff',
+            border: '1px solid rgba(255, 255, 255, 0.1)'
+          },
+        }}
+      />
+
+      <Navbar />
+
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/config" element={<ConfigPage />} />
-        <Route path="/analysis" element={<AnalysisPage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
+        {/* PUBLIC ROUTES */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+
+        {/* PROTECTED ROUTES */}
+        <Route path="/dashboard" element={
+          <ProtectedRoute>
+            <DashboardPage />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/config" element={
+          <RoleProtectedRoute allowedRoles={['admin', 'engineer']}>
+            <ConfigPage />
+          </RoleProtectedRoute>
+        } />
+
+        <Route path="/analysis" element={
+          <RoleProtectedRoute allowedRoles={['admin', 'engineer']}>
+            <AnalysisPage />
+          </RoleProtectedRoute>
+        } />
+
+        <Route path="/users" element={
+          <RoleProtectedRoute allowedRoles={['admin']}>
+            <UserManagementPage />
+          </RoleProtectedRoute>
+        } />
+
+        {/* CATCH ALL */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );
 }
-
-export default App;

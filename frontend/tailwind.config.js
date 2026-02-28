@@ -9,9 +9,13 @@ export default {
             colors: {
                 background: '#030712', /* gray-950 */
             },
+            fontFamily: {
+                sans: ['Inter', 'system-ui', 'sans-serif'],
+            },
             animation: {
                 'gradient-x': 'gradient-x 15s ease infinite',
                 'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                'spin-slow': 'spin 15s linear infinite',
             },
             keyframes: {
                 'gradient-x': {
