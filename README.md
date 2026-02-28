@@ -37,24 +37,4 @@ CreaBuild-AI-System/
 └── README.md             # Project documentation (this file)
 ```
 
-## Getting Started
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/Ombhudhara/CreaBuild-AI-Dynamic-Engineering-Autonomous-Construction-System.git
-   cd CreaBuild-AI-Dynamic-Engineering-Autonomous-Construction-System
-   ```
-
-2. **Setup Frontend:**
-   ```bash
-   cd frontend
-   npm install
-   npm run dev
-   ```
-
-3. **Setup Backend:**
-   ```bash
-   cd backend
-   npm install
-   npm start
-   ```
