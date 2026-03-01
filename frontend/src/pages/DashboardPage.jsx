@@ -79,8 +79,8 @@ export default function DashboardPage() {
                     load: { value: Math.floor(newLoad), trend: 5.4, status: newLoad > 140 ? 'critical' : 'normal' }
                 }));
 
-                // Call ML API every 5 seconds
-                if (tickCount % 5 === 0) {
+                // Call ML API every 2 seconds instead of 5
+                if (tickCount % 2 === 0) {
                     try {
                         const res = await api.post('/ml/predict', {
                             temperature: newTemp,
@@ -97,19 +97,19 @@ export default function DashboardPage() {
                             let nextStatus = prevStatus;
                             if (riskLevel === 2) {
                                 if (prevStatus !== 'anomaly') {
-                                    toast.error(`⚠ Warning: High Risk Predicted (${confidence.toFixed(1)}%)`, {
+                                    toast.error(`⚠ Warning: High Risk (${confidence.toFixed(1)}%)`, {
                                         style: { border: '1px solid #ef4444', backgroundColor: 'rgba(50, 0, 0, 0.8)' }
                                     });
                                 }
                                 nextStatus = 'anomaly';
                             } else if (riskLevel === 1) {
                                 if (prevStatus !== 'warning' && prevStatus !== 'anomaly') {
-                                    toast('Caution: Moderate Risk. Monitoring closely.', { icon: '⚠️' });
+                                    toast('Caution: Risk detected!', { icon: '⚠️' });
                                 }
                                 nextStatus = 'warning';
                             } else {
                                 if (prevStatus === 'anomaly' || prevStatus === 'warning') {
-                                    toast("All safe now. AI confirms normal status.", {
+                                    toast("Normal status.", {
                                         icon: '🟢',
                                         style: { color: '#4ade80', borderColor: '#4ade80' }
                                     });
@@ -123,7 +123,7 @@ export default function DashboardPage() {
                         console.error("ML Prediction Failed:", error);
                     }
                 }
-            }, 1000);
+            }, 500); // 500ms simulation interval makes it feel faster too
         };
 
         startSimulation();
