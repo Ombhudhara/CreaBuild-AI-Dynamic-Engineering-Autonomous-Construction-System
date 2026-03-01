@@ -85,19 +85,19 @@ export default function HomePage() {
                         <span className="text-white">Plan.</span> Test. Fix. <span className="text-cyan-400 neon-cyan font-bold">Build Smarter.</span>
                     </p>
 
-                    <div className="flex items-center justify-center gap-6">
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full px-4 sm:px-0">
                         {isAuth ? (
-                            <button onClick={() => navigate('/dashboard')} className="group relative inline-flex items-center justify-center px-10 py-5 font-bold text-white bg-cyan-600 rounded-full overflow-hidden transition-all shadow-[0_0_30px_rgba(6,182,212,0.4)] hover:shadow-[0_0_40px_rgba(6,182,212,0.6)] hover:scale-105 border border-cyan-400">
+                            <button onClick={() => navigate('/dashboard')} className="w-full sm:w-auto group relative inline-flex items-center justify-center px-8 sm:px-10 py-4 sm:py-5 font-bold text-white bg-cyan-600 rounded-full overflow-hidden transition-all shadow-[0_0_30px_rgba(6,182,212,0.4)] hover:shadow-[0_0_40px_rgba(6,182,212,0.6)] hover:scale-105 border border-cyan-400">
                                 <span className="absolute inset-0 w-full h-full bg-cyan-500 group-hover:scale-x-150 origin-left transition-transform duration-500 ease-out"></span>
-                                <span className="relative z-10 text-xl tracking-wider flex items-center gap-3">GO TO DASHBOARD <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" /></span>
+                                <span className="relative z-10 text-lg sm:text-xl tracking-wider flex items-center gap-3">GO TO DASHBOARD <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1 transition-transform" /></span>
                             </button>
                         ) : (
                             <>
-                                <button onClick={() => navigate('/signup')} className="group relative inline-flex items-center justify-center px-10 py-5 font-bold text-white bg-cyan-600 rounded-full overflow-hidden transition-all shadow-[0_0_30px_rgba(6,182,212,0.4)] hover:shadow-[0_0_40px_rgba(6,182,212,0.6)] hover:scale-105 border border-cyan-400">
+                                <button onClick={() => navigate('/signup')} className="w-full sm:w-auto group relative inline-flex items-center justify-center px-8 sm:px-10 py-4 sm:py-5 font-bold text-white bg-cyan-600 rounded-full overflow-hidden transition-all shadow-[0_0_30px_rgba(6,182,212,0.4)] hover:shadow-[0_0_40px_rgba(6,182,212,0.6)] hover:scale-105 border border-cyan-400">
                                     <span className="absolute inset-0 w-full h-full bg-cyan-500 group-hover:scale-x-150 origin-left transition-transform duration-500 ease-out"></span>
-                                    <span className="relative z-10 text-xl tracking-wider flex items-center gap-3">GET STARTED <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" /></span>
+                                    <span className="relative z-10 text-lg sm:text-xl tracking-wider flex items-center gap-3">GET STARTED <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1 transition-transform" /></span>
                                 </button>
-                                <button onClick={() => navigate('/login')} className="px-10 py-5 font-bold tracking-widest uppercase rounded-full glassmorphism hover:bg-white/5 transition-colors border border-white/20 hover:border-white/50">
+                                <button onClick={() => navigate('/login')} className="w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 font-bold tracking-widest uppercase rounded-full glassmorphism hover:bg-white/5 transition-colors border border-white/20 hover:border-white/50 text-lg sm:text-xl">
                                     LOGIN
                                 </button>
                             </>

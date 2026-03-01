@@ -55,17 +55,17 @@ export default function Navbar() {
 
                 {auth ? (
                     <>
-                        <Link to="/dashboard" className="text-gray-300 hover:text-white font-medium text-sm tracking-widest uppercase flex items-center gap-2">
+                        <Link to="/dashboard" className="hidden sm:flex text-gray-300 hover:text-white font-medium text-sm tracking-widest uppercase items-center gap-2">
                             Dashboard <ArrowRight className="w-4 h-4" />
                         </Link>
-                        <button onClick={handleLogout} className="flex items-center gap-2 text-red-400 hover:text-red-300 text-sm font-bold tracking-widest uppercase bg-red-950/30 px-5 py-2.5 rounded-full border border-red-500/30 transition-colors hover:bg-red-900/40">
-                            <LogOut className="w-4 h-4" /> Logout
+                        <button onClick={handleLogout} className="flex items-center gap-2 text-red-400 hover:text-red-300 text-xs sm:text-sm font-bold tracking-widest uppercase bg-red-950/30 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-red-500/30 transition-colors hover:bg-red-900/40">
+                            <LogOut className="w-4 h-4" /> <span className="hidden sm:inline">Logout</span>
                         </button>
                     </>
                 ) : (
                     <>
-                        <Link to="/login" className="text-gray-300 hover:text-white font-medium text-sm tracking-widest uppercase px-6 py-2.5 rounded-full border border-white/10 hover:bg-white/5 transition-colors">Login</Link>
-                        <Link to="/signup" className="group text-gray-950 font-bold text-sm tracking-widest uppercase bg-cyan-400 hover:bg-cyan-300 px-6 py-2.5 rounded-full shadow-[0_0_15px_rgba(6,182,212,0.4)] hover:shadow-[0_0_25px_rgba(6,182,212,0.6)] transition-all flex items-center gap-2">
+                        <Link to="/login" className="hidden sm:inline-flex text-gray-300 hover:text-white font-medium text-sm tracking-widest uppercase px-6 py-2.5 rounded-full border border-white/10 hover:bg-white/5 transition-colors">Login</Link>
+                        <Link to="/signup" className="group text-gray-950 font-bold text-xs sm:text-sm tracking-widest uppercase bg-cyan-400 hover:bg-cyan-300 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full shadow-[0_0_15px_rgba(6,182,212,0.4)] hover:shadow-[0_0_25px_rgba(6,182,212,0.6)] transition-all flex items-center gap-2">
                             Get Started
                         </Link>
                     </>

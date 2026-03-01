@@ -147,16 +147,16 @@ export default function DashboardPage() {
             <div className="flex-1 flex flex-col min-w-0 z-10">
                 <Header status={status === 'normal' ? 'active' : 'warning'} />
 
-                <main className="flex-1 p-6 overflow-y-auto custom-scrollbar">
+                <main className="flex-1 p-4 md:p-6 overflow-y-auto custom-scrollbar">
 
-                    <div className="flex justify-between items-end mb-6">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-6 gap-2">
                         <div>
-                            <h2 className="text-3xl font-black uppercase tracking-tight">Live 3D Building <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Monitor</span></h2>
-                            <p className="text-gray-400 text-sm font-medium">Watching Building Health and Weight Balance.</p>
+                            <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight">Live 3D Building <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Monitor</span></h2>
+                            <p className="text-gray-400 text-xs sm:text-sm font-medium">Watching Building Health and Weight Balance.</p>
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-[calc(100vh-180px)] min-h-[600px]">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pb-10 h-auto lg:h-[calc(100vh-180px)] lg:min-h-[600px]">
 
                         {/* Left Panel: Sensor Metrics */}
                         <div className="lg:col-span-3 flex flex-col gap-4">
@@ -284,12 +284,12 @@ export default function DashboardPage() {
                             <div className="glassmorphism rounded-2xl p-5 border border-slate-700 flex flex-col gap-3 bg-slate-900/40">
                                 <div className="flex items-center gap-4">
                                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${mlStats.riskLevel === 2 ? 'bg-red-500/20 border-red-500/30' :
-                                            mlStats.riskLevel === 1 ? 'bg-orange-500/20 border-orange-500/30' :
-                                                'bg-sky-500/20 border-sky-500/30'
+                                        mlStats.riskLevel === 1 ? 'bg-orange-500/20 border-orange-500/30' :
+                                            'bg-sky-500/20 border-sky-500/30'
                                         } border`}>
                                         <Activity className={`w-5 h-5 ${mlStats.riskLevel === 2 ? 'text-red-400' :
-                                                mlStats.riskLevel === 1 ? 'text-orange-400' :
-                                                    'text-sky-400'
+                                            mlStats.riskLevel === 1 ? 'text-orange-400' :
+                                                'text-sky-400'
                                             }`} />
                                     </div>
                                     <div>
