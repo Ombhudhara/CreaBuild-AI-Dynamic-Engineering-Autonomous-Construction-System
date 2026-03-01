@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Edges } from '@react-three/drei';
-import * as THREE from 'three';
 
 function FloorPlanBlueprint({ isRed }) {
     const groupRef = useRef();
