@@ -4,7 +4,9 @@ import {
     createProject,
     updateProject,
     deleteProject,
-    assignViewers
+    assignViewers,
+    approveViewers,
+    rejectViewers
 } from '../controllers/projectController.js';
 import { protect, authorize } from '../middleware/authMiddleware.js';
 
@@ -23,5 +25,7 @@ router
     .delete(authorize('Admin', 'Engineer'), deleteProject);
 
 router.route('/:id/assign').put(authorize('Admin', 'Engineer'), assignViewers);
+router.route('/:id/approve').put(authorize('Admin'), approveViewers);
+router.route('/:id/reject').put(authorize('Admin'), rejectViewers);
 
 export default router;

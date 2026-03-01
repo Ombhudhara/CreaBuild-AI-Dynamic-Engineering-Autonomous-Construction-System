@@ -12,6 +12,18 @@ export const getUsers = async (req, res) => {
     }
 };
 
+// @desc    Get Viewers only
+// @route   GET /api/users/viewers
+// @access  Private
+export const getViewers = async (req, res) => {
+    try {
+        const viewers = await User.find({ role: 'Viewer' }).select('_id name email role');
+        res.json(viewers);
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+};
+
 // @desc    Update user role
 // @route   PUT /api/users/:id
 // @access  Private/Admin

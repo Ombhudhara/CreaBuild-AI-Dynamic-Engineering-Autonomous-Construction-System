@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { isAuthenticated, logout } from '../services/auth';
+import { AuthContext } from '../context/AuthContext';
 import { Cpu, LogOut, ArrowRight, Sun, Moon } from 'lucide-react';
 
 export default function Navbar() {
     const navigate = useNavigate();
     const location = useLocation();
-    const auth = isAuthenticated();
+    const { token, logout } = React.useContext(AuthContext);
+    const auth = !!token;
 
     const [isDarkMode, setIsDarkMode] = useState(() => {
         return localStorage.getItem('theme') !== 'light';

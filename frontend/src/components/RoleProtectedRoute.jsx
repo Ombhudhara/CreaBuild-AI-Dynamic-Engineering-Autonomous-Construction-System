@@ -12,9 +12,12 @@ export default function RoleProtectedRoute({ children, allowedRoles }) {
 
     const currentRole = role ? role.toLowerCase() : 'viewer';
 
-    if (!allowedRoles.includes(currentRole)) {
-        toast.error('Unauthorized access. Elevated privileges required.');
-        return <Navigate to="/dashboard" replace />;
+    if (currentRole !== 'admin') {
+        const allowedRolesLower = allowedRoles.map(r => r.toLowerCase());
+        if (!allowedRolesLower.includes(currentRole)) {
+            toast.error('Unauthorized access. Elevated privileges required.');
+            return <Navigate to="/dashboard" replace />;
+        }
     }
 
     return children;

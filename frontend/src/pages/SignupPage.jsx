@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Cpu, ShieldPlus } from 'lucide-react';
 import { toast } from 'react-hot-toast';
-import { register } from '../services/auth';
+import { AuthContext } from '../context/AuthContext';
 
 export default function SignupPage() {
     const [name, setName] = useState('');
@@ -11,6 +11,7 @@ export default function SignupPage() {
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('Viewer');
     const navigate = useNavigate();
+    const { register } = React.useContext(AuthContext);
 
     const handleReq = async (e) => {
         e.preventDefault();

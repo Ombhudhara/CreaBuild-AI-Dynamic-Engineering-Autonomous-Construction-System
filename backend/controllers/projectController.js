@@ -10,11 +10,19 @@ export const getProjects = async (req, res) => {
         let projects;
 
         if (req.user.role === 'Admin') {
-            projects = await Project.find().populate('createdBy', 'name email').populate('assignedViewers', 'name email');
+            projects = await Project.find()
+                .populate('createdBy', 'name email')
+                .populate('assignedViewers', 'name email')
+                .populate('pendingViewers', 'name email');
         } else if (req.user.role === 'Engineer') {
-            projects = await Project.find({ createdBy: req.user._id }).populate('createdBy', 'name email').populate('assignedViewers', 'name email');
+            projects = await Project.find({ createdBy: req.user._id })
+                .populate('createdBy', 'name email')
+                .populate('assignedViewers', 'name email')
+                .populate('pendingViewers', 'name email');
         } else if (req.user.role === 'Viewer') {
-            projects = await Project.find({ assignedViewers: req.user._id }).populate('createdBy', 'name email').populate('assignedViewers', 'name email');
+            projects = await Project.find({ assignedViewers: req.user._id })
+                .populate('createdBy', 'name email')
+                .populate('assignedViewers', 'name email');
         }
 
         res.status(200).json(projects);
@@ -133,21 +141,97 @@ export const assignViewers = async (req, res) => {
             return res.status(400).json({ message: 'One or more users are not valid Viewers' });
         }
 
-        // Find newly assigned viewers to send notifications only to them
-        const existingViewerIdsString = project.assignedViewers.map(id => id.toString());
-        const newViewerIds = viewerIds.filter((id) => !existingViewerIdsString.includes(id));
+        if (req.user.role === 'Engineer') {
+            // Engineers can only request to add viewers (goes to pending)
+            // Filter out ones already assigned
+            const existingAssigned = project.assignedViewers.map(id => id.toString());
+            const newPending = viewerIds.filter(id => !existingAssigned.includes(id));
 
-        project.assignedViewers = viewerIds;
+            project.pendingViewers = newPending;
+            await project.save();
+
+            if (newPending.length > 0) {
+                const admins = await User.find({ role: 'Admin' });
+                if (admins.length > 0) {
+                    const notifications = admins.map((admin) => ({
+                        userId: admin._id,
+                        message: `Engineer ${req.user.name} requested to assign new viewers to project: ${project.name}. Waiting for approval.`,
+                        relatedProject: project._id,
+                    }));
+                    await Notification.insertMany(notifications);
+                }
+            }
+        } else if (req.user.role === 'Admin') {
+            // Admins assign directly
+            const existingViewerIdsString = project.assignedViewers.map(id => id.toString());
+            const newViewerIds = viewerIds.filter((id) => !existingViewerIdsString.includes(id));
+
+            project.assignedViewers = viewerIds;
+            await project.save();
+
+            if (newViewerIds.length > 0) {
+                const notifications = newViewerIds.map((vId) => ({
+                    userId: vId,
+                    message: `You have been assigned to project ${project.name}`,
+                    relatedProject: project._id,
+                }));
+                await Notification.insertMany(notifications);
+            }
+        }
+
+        res.status(200).json(project);
+    } catch (error) {
+        res.status(500).json({ message: 'Server Error', error: error.message });
+    }
+};
+
+// @desc    Approve pending viewers to a project
+// @route   PUT /api/projects/:id/approve
+// @access  Private (Admin only)
+export const approveViewers = async (req, res) => {
+    try {
+        const project = await Project.findById(req.params.id);
+
+        if (!project) {
+            return res.status(404).json({ message: 'Project not found' });
+        }
+
+        if (project.pendingViewers.length === 0) {
+            return res.status(400).json({ message: 'No pending viewers to approve' });
+        }
+
+        const newViewers = project.pendingViewers;
+        project.assignedViewers = [...new Set([...project.assignedViewers, ...newViewers])];
+        project.pendingViewers = [];
         await project.save();
 
-        if (newViewerIds.length > 0) {
-            const notifications = newViewerIds.map((vId) => ({
-                userId: vId,
-                message: `You have been assigned to project ${project.name}`,
-                relatedProject: project._id,
-            }));
-            await Notification.insertMany(notifications);
+        // Notify the newly approved viewers
+        const notifications = newViewers.map((vId) => ({
+            userId: vId,
+            message: `Admin approved your assignment to project ${project.name}`,
+            relatedProject: project._id,
+        }));
+        await Notification.insertMany(notifications);
+
+        res.status(200).json(project);
+    } catch (error) {
+        res.status(500).json({ message: 'Server Error', error: error.message });
+    }
+};
+
+// @desc    Reject pending viewers to a project
+// @route   PUT /api/projects/:id/reject
+// @access  Private (Admin only)
+export const rejectViewers = async (req, res) => {
+    try {
+        const project = await Project.findById(req.params.id);
+
+        if (!project) {
+            return res.status(404).json({ message: 'Project not found' });
         }
+
+        project.pendingViewers = [];
+        await project.save();
 
         res.status(200).json(project);
     } catch (error) {

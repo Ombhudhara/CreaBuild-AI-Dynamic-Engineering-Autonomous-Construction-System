@@ -111,8 +111,8 @@ export default function UserManagementPage() {
                                     <tr className="border-b border-white/10 text-xs font-bold text-gray-400 tracking-widest uppercase mb-4">
                                         <th className="p-4">Name</th>
                                         <th className="p-4">Email</th>
+                                        <th className="p-4">System ID</th>
                                         <th className="p-4">Authorization Role</th>
-                                        <th className="p-4">Status</th>
                                         <th className="p-4 text-right">Actions</th>
                                     </tr>
                                 </thead>
@@ -121,6 +121,18 @@ export default function UserManagementPage() {
                                         <tr key={user._id} className="hover:bg-white/5 transition-colors group">
                                             <td className="p-4 font-bold text-gray-200">{user.name}</td>
                                             <td className="p-4 font-mono text-sm text-gray-400">{user.email}</td>
+                                            <td className="p-4">
+                                                <div
+                                                    className="font-mono text-xs text-sky-400 bg-sky-900/20 px-2 py-1 rounded cursor-pointer hover:bg-sky-500/20 transition-colors inline-block"
+                                                    onClick={() => {
+                                                        navigator.clipboard.writeText(user._id);
+                                                        toast.success('ID Copied!');
+                                                    }}
+                                                    title="Click to copy ID"
+                                                >
+                                                    {user._id}
+                                                </div>
+                                            </td>
                                             <td className="p-4">
                                                 <select
                                                     value={user.role}
@@ -131,11 +143,6 @@ export default function UserManagementPage() {
                                                     <option value="Engineer">Engineer</option>
                                                     <option value="Viewer">Viewer</option>
                                                 </select>
-                                            </td>
-                                            <td className="p-4">
-                                                <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-green-500/10 text-green-400 border border-green-500/20`}>
-                                                    Active
-                                                </span>
                                             </td>
                                             <td className="p-4 flex gap-3 justify-end">
                                                 <button onClick={() => handleDelete(user._id)} className="text-gray-500 hover:text-red-400 transition-colors p-2 bg-white/5 rounded-lg"><Trash2 className="w-4 h-4" /></button>

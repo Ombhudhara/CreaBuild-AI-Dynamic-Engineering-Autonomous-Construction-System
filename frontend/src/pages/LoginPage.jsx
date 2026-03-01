@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { login } from '../services/auth';
+import { AuthContext } from '../context/AuthContext';
 import { toast } from 'react-hot-toast';
 import { motion } from 'framer-motion';
 import { Cpu, Lock, Mail, ArrowRight } from 'lucide-react';
@@ -9,6 +9,7 @@ export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const { login } = React.useContext(AuthContext);
 
     const handleSub = async (e) => {
         e.preventDefault();

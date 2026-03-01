@@ -20,10 +20,10 @@ connectDB();
 const app = express();
 
 // Middleware
-app.use(cors()); // Allow cross-origin requests
-app.use(express.json()); // Body parser
+app.use(cors());
+app.use(express.json());
 
-// Mount routers
+// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/projects', projectRoutes);
@@ -31,12 +31,12 @@ app.use('/api/notifications', notificationRoutes);
 app.use('/api/ml', mlRoutes);
 app.use('/api', protectedRoutes);
 
-// Root route
-app.get('/', (req, res) => {
+// Test route
+app.get('/api', (req, res) => {
     res.send('CreaBuild AI API is running...');
 });
 
-// Fallback error handler
+// Error handler
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({
@@ -47,4 +47,6 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, console.log(`[Server] Running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`));
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});

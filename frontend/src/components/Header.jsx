@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Cpu, Bell, User, LogOut, ChevronDown, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { getUserName, getUserRole, logout } from '../services/auth';
+import { AuthContext } from '../context/AuthContext';
 import api from '../services/api';
 
 export default function Header({ status = 'active' }) {
@@ -10,7 +10,7 @@ export default function Header({ status = 'active' }) {
     const isWarning = status === 'warning';
     const navigate = useNavigate();
 
-    const [dropdownOpen, setDropdownOpen] = useState(false);
+
     const [notifOpen, setNotifOpen] = useState(false);
     const [notifications, setNotifications] = useState([]);
     const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -29,8 +29,11 @@ export default function Header({ status = 'active' }) {
         }
     };
 
-    const userName = getUserName();
-    const userRole = getUserRole();
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const { user, role, logout } = React.useContext(AuthContext);
+
+    const userName = user?.name || 'Operator';
+    const userRole = role ? role.toUpperCase() : 'VIEWER';
 
     useEffect(() => {
         fetchNotifications();

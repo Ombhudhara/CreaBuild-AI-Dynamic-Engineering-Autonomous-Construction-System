@@ -28,9 +28,18 @@ export const protect = async (req, res, next) => {
 
 export const authorize = (...roles) => {
     return (req, res, next) => {
-        if (!roles.includes(req.user.role)) {
+        const currentRole = req.user?.role ? req.user.role.toLowerCase() : '';
+
+        // Admin gets absolute full access to everything in the system
+        if (currentRole === 'admin') {
+            return next();
+        }
+
+        const allowedRoles = roles.map(r => r.toLowerCase());
+
+        if (!allowedRoles.includes(currentRole)) {
             return res.status(403).json({
-                message: `User role ${req.user.role} is not authorized to access this route`,
+                message: `User role ${req.user?.role || 'undefined'} is not authorized.`,
             });
         }
         next();

@@ -13,6 +13,8 @@ export default function Sidebar() {
         { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard', roles: ['admin', 'engineer', 'viewer'] },
         { icon: FolderOpen, label: 'Projects', path: '/projects', roles: ['admin', 'engineer', 'viewer'] },
         { icon: PlusSquare, label: 'Create Project', path: '/projects/create', roles: ['admin', 'engineer'] },
+        { icon: Activity, label: 'Analysis', path: '/analysis', roles: ['admin', 'engineer'] },
+        { icon: Settings, label: 'Config', path: '/config', roles: ['admin', 'engineer'] },
         { icon: Users, label: 'Users', path: '/users', roles: ['admin'] },
     ];
 

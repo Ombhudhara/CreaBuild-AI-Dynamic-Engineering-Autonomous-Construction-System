@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Cpu, Box, Activity, Layers, ArrowRight, ShieldAlert, TrendingDown, Users, Check, X, FileText } from 'lucide-react';
-import { isAuthenticated } from '../services/auth';
+import { AuthContext } from '../context/AuthContext';
 import { Line, Bar, Doughnut } from 'react-chartjs-2';
 import {
     Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, BarElement, ArcElement
@@ -14,7 +14,8 @@ ChartJS.register(
 
 export default function HomePage() {
     const navigate = useNavigate();
-    const isAuth = isAuthenticated();
+    const { token } = React.useContext(AuthContext);
+    const isAuth = !!token;
 
     // --- CHART OPTIONS & DATA ---
     const chartOptions = {
