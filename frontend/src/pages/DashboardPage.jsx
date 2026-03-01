@@ -195,7 +195,7 @@ export default function DashboardPage() {
                         </div>
 
                         {/* Center Panel: 3D Visualization */}
-                        <div className={`lg:col-span-5 glassmorphism rounded-[2rem] border relative overflow-hidden transition-all duration-500 shadow-2xl flex flex-col
+                        <div className={`lg:col-span-5 min-h-[400px] lg:min-h-0 glassmorphism rounded-[2rem] border relative overflow-hidden transition-all duration-500 shadow-2xl flex flex-col
               ${status === 'anomaly' ? 'border-red-500 shadow-[0_0_30px_rgba(239,68,68,0.3)]' : 'border-white/10'}`}
                         >
                             <div className="absolute top-4 left-6 z-10">
