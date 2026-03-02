@@ -38,9 +38,9 @@ export default function LoginPage() {
                     <h2 className="text-3xl font-black text-white uppercase tracking-wider">Access System</h2>
                     <p className="text-gray-400 text-sm font-medium mt-2 text-center">
                         Demo Credentials:<br />
-                        admin@creabuild.ai / admin<br />
-                        engineer@creabuild.ai / engineer<br />
-                        viewer@creabuild.ai / viewer
+                        ombhudhara@gmail.com / 123456<br />
+                        hrkacha@gmail.com / 123456<br />
+                        divyeshm@gmail.com / 123456
                     </p>
                 </div>
 
@@ -72,12 +72,12 @@ export default function LoginPage() {
                     </div>
 
                     <button type="submit" className="w-full py-4 bg-cyan-500 hover:bg-cyan-400 text-gray-950 font-bold tracking-widest uppercase rounded-xl shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all flex items-center justify-center gap-2 hover:scale-[1.02]">
-                        AUTHORIZE ACCESS <ArrowRight className="w-5 h-5" />
+                        Login <ArrowRight className="w-5 h-5" />
                     </button>
                 </form>
 
                 <p className="text-center text-gray-500 text-sm mt-6 font-medium">
-                    No clearance? <Link to="/signup" className="text-cyan-400 hover:text-cyan-300 ml-1">Request Access</Link>
+                    No clearance? <Link to="/signup" className="text-cyan-400 hover:text-cyan-300 ml-1">Sign up</Link>
                 </p>
             </motion.div>
         </div>
