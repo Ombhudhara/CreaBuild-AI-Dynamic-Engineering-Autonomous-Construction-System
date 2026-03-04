@@ -2,6 +2,9 @@ import { spawn } from 'child_process';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import readline from 'readline';
+import { asyncHandler } from '../utils/asyncHandler.js';
+import { ApiError } from '../utils/ApiError.js';
+import { ApiResponse } from '../utils/ApiResponse.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -36,12 +39,12 @@ const startDaemon = () => {
             try {
                 const result = JSON.parse(cleanLine);
                 if (result.error) {
-                    res.status(500).json({ message: 'ML Logic Error', error: result.error });
+                    res.status(500).json(new ApiError(500, 'ML Logic Error', [result.error]));
                 } else {
-                    res.status(200).json(result);
+                    res.status(200).json(new ApiResponse(200, result, 'Prediction generated successfully'));
                 }
             } catch (err) {
-                res.status(500).json({ message: 'Failed to parse ML output', raw: cleanLine });
+                res.status(500).json(new ApiError(500, 'Failed to parse ML output', [cleanLine]));
             }
         }
     });
@@ -63,26 +66,21 @@ startDaemon();
 // @desc    Predict structural risk using fast persistent Python Daemon
 // @route   POST /api/ml/predict
 // @access  Private
-export const predictRisk = (req, res) => {
-    try {
-        if (!isReady || !pythonDaemon) {
-            return res.status(503).json({ message: 'ML Engine is still loading into memory. Please wait a few seconds.' });
-        }
-
-        const { temperature, vibration, humidity, loadStress } = req.body;
-
-        const inputData = JSON.stringify({
-            temperature: parseFloat(temperature) || 25,
-            vibration: parseFloat(vibration) || 0.5,
-            humidity: parseFloat(humidity) || 50,
-            loadStress: parseFloat(loadStress) || 100
-        });
-
-        // Push response object to queue and write to Python stdin instantaneously
-        requestQueue.push({ res });
-        pythonDaemon.stdin.write(inputData + '\n');
-
-    } catch (error) {
-        res.status(500).json({ message: 'Server Error', error: error.message });
+export const predictRisk = asyncHandler(async (req, res) => {
+    if (!isReady || !pythonDaemon) {
+        throw new ApiError(503, 'ML Engine is still loading into memory. Please wait a few seconds.');
     }
-};
+
+    const { temperature, vibration, humidity, loadStress } = req.body;
+
+    const inputData = JSON.stringify({
+        temperature: parseFloat(temperature) || 25,
+        vibration: parseFloat(vibration) || 0.5,
+        humidity: parseFloat(humidity) || 50,
+        loadStress: parseFloat(loadStress) || 100
+    });
+
+    // Push response object to queue and write to Python stdin instantaneously
+    requestQueue.push({ res });
+    pythonDaemon.stdin.write(inputData + '\n');
+});
