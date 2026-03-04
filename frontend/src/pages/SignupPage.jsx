@@ -55,19 +55,18 @@ export default function SignupPage() {
                     <div className="space-y-1">
                         <label className="text-xs font-bold text-gray-400 uppercase tracking-widest">Requested Role</label>
                         <select value={role} onChange={e => setRole(e.target.value)} className="w-full bg-gray-900/50 border border-white/10 p-2.5 rounded-xl focus:outline-none focus:border-indigo-500 text-white font-mono appearance-none">
-                            <option value="Admin">Admin</option>
                             <option value="Engineer">Engineer</option>
                             <option value="Viewer">Viewer</option>
                         </select>
                     </div>
 
                     <button type="submit" className="w-full mt-6 py-4 bg-indigo-500 hover:bg-indigo-400 text-white font-bold tracking-widest uppercase rounded-xl hover:scale-[1.02] shadow-[0_0_15px_rgba(99,102,241,0.4)] transition-all">
-                        SUBMIT CLEARANCE REQUEST
+                        SUBMIT
                     </button>
                 </form>
 
                 <p className="text-center text-gray-500 text-sm mt-6 font-medium">
-                    Already authorized? <Link to="/login" className="text-indigo-400 hover:text-indigo-300 ml-1">Access System</Link>
+                    Already registered? <Link to="/login" className="text-indigo-400 hover:text-indigo-300 ml-1">login</Link>
                 </p>
             </motion.div>
         </div>
