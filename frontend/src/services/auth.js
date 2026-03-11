@@ -2,20 +2,20 @@ import api from './api';
 
 export const login = async (email, password) => {
     const response = await api.post('/auth/login', { email, password });
-    const { token, role, name } = response.data;
+    const { token, role, name } = response.data.data;
     localStorage.setItem('token', token);
     localStorage.setItem('role', role);
     if (name) localStorage.setItem('name', name);
-    return response.data;
+    return response.data.data;
 };
 
 export const register = async (name, email, password, role = 'Viewer') => {
     const response = await api.post('/auth/signup', { name, email, password, role });
-    const { token, role: returnedRole, name: returnedName } = response.data;
+    const { token, role: returnedRole, name: returnedName } = response.data.data;
     localStorage.setItem('token', token);
     localStorage.setItem('role', returnedRole);
     if (returnedName) localStorage.setItem('name', returnedName);
-    return response.data;
+    return response.data.data;
 };
 
 export const logout = () => {
