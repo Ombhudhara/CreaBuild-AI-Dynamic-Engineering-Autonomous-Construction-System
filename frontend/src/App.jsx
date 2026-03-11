@@ -6,6 +6,7 @@ import { Toaster } from 'react-hot-toast';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import RoleProtectedRoute from './components/RoleProtectedRoute';
+import GuestRoute from './components/GuestRoute';
 
 // Pages
 import HomePage from './pages/HomePage';
@@ -41,8 +42,16 @@ export default function App() {
       <Routes>
         {/* PUBLIC ROUTES */}
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={
+          <GuestRoute>
+            <LoginPage />
+          </GuestRoute>
+        } />
+        <Route path="/signup" element={
+          <GuestRoute>
+            <SignupPage />
+          </GuestRoute>
+        } />
 
         {/* PROTECTED ROUTES */}
         <Route path="/dashboard" element={
