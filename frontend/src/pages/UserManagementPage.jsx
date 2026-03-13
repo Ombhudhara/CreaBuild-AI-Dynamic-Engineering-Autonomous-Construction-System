@@ -14,8 +14,8 @@ export default function UserManagementPage() {
 
     const fetchUsers = async () => {
         try {
-            const { data } = await api.get('/users');
-            setUsers(data);
+            const res = await api.get('/users');
+            setUsers(Array.isArray(res.data.data) ? res.data.data : []);
         } catch (error) {
             toast.error('Failed to load users');
         }

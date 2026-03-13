@@ -89,7 +89,10 @@ export default function DashboardPage() {
                             loadStress: newLoad
                         });
 
-                        const { riskLevel, confidence, featureImportance } = res.data;
+                        const mlData = res.data?.data;
+                        if (!mlData) throw new Error('Invalid ML response');
+
+                        const { riskLevel, confidence, featureImportance } = mlData;
 
                         setMlStats({ riskLevel, confidence, importance: featureImportance });
 

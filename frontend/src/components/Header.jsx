@@ -42,7 +42,7 @@ export default function Header({ status = 'active' }) {
     const fetchNotifications = async () => {
         try {
             const res = await api.get('/notifications');
-            setNotifications(res.data);
+            setNotifications(res.data.data);
         } catch (error) {
             console.error("Failed to fetch notifications", error);
         }

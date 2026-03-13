@@ -28,7 +28,7 @@ export default function ProjectsPage() {
     const fetchProjects = async () => {
         try {
             const res = await api.get('/projects');
-            setProjects(res.data);
+            setProjects(res.data.data);
             setLoading(false);
         } catch (error) {
             toast.error('Failed to load projects');
@@ -39,7 +39,7 @@ export default function ProjectsPage() {
     const fetchViewers = async () => {
         try {
             const res = await api.get('/users/viewers');
-            setViewers(res.data);
+            setViewers(res.data.data);
         } catch (error) {
             console.error("Could not load viewers", error);
         }
