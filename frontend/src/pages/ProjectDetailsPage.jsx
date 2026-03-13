@@ -24,7 +24,8 @@ export default function ProjectDetailsPage() {
                 // For simplicity, we fetch all projects and find the one. 
                 // Alternatively, an endpoint GET /projects/:id could be created.
                 const res = await api.get('/projects');
-                const p = res.data.find(proj => proj._id === id);
+                const projectsList = Array.isArray(res.data.data) ? res.data.data : [];
+                const p = projectsList.find(proj => proj._id === id);
                 if (p) {
                     setProject(p);
                     setName(p.name);

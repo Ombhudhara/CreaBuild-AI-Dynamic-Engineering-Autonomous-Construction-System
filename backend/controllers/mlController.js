@@ -18,7 +18,22 @@ const startDaemon = () => {
     const scriptPath = path.join(__dirname, '../ml-service/predict_daemon.py');
     const pythonCommand = process.platform === 'win32' ? 'python' : 'python3';
 
-    pythonDaemon = spawn(pythonCommand, [scriptPath]);
+    try {
+        pythonDaemon = spawn(pythonCommand, [scriptPath]);
+    } catch (err) {
+        console.error("❌ Failed to spawn ML Daemon:", err.message);
+        pythonDaemon = null;
+        isReady = false;
+        return; // Don't retry if spawn itself fails
+    }
+
+    // Handle spawn errors (e.g., python3 not found on system)
+    pythonDaemon.on('error', (err) => {
+        console.error("❌ ML Daemon spawn error:", err.message);
+        pythonDaemon = null;
+        isReady = false;
+        // Don't retry — Python is likely not installed
+    });
 
     // Use readline to perfectly parse JSON objects separated by newlines
     const rl = readline.createInterface({
@@ -55,9 +70,10 @@ const startDaemon = () => {
     });
 
     pythonDaemon.on('close', (code) => {
-        console.log(`ML Daemon disconnected. Reconnecting in 5 seconds...`);
+        console.log(`ML Daemon disconnected (code: ${code}). Will use fallback predictions.`);
         isReady = false;
-        setTimeout(startDaemon, 5000);
+        pythonDaemon = null;
+        // Only retry if it previously worked (was ready)
     });
 };
 
